@@ -11,6 +11,7 @@
  * @property integer $created_at
  * @property integer $status
  * @property integer $position
+ * @property integer $is_event
  */
 class News extends CActiveRecord
 {
@@ -40,13 +41,13 @@ class News extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created_at, status, position', 'numerical', 'integerOnly'=>true),
+			array('created_at, status, position, is_event', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>200),
 			array('summary', 'length', 'max'=>255),
 			array('content', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, summary, content, created_at, status, position', 'safe', 'on'=>'search'),
+			array('id, title, summary, content, created_at, status, position, is_event', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,6 +75,7 @@ class News extends CActiveRecord
 			'created_at' => 'Created At',
 			'status' => 'Status',
 			'position' => 'Position',
+			'is_event' => 'Is Event',
 		);
 	}
 
@@ -95,6 +97,7 @@ class News extends CActiveRecord
 		$criteria->compare('created_at',$this->created_at);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('position',$this->position);
+		$criteria->compare('is_event',$this->is_event);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
