@@ -8,7 +8,11 @@
 class UserIdentity extends CUserIdentity
 {
 	private $_id;
-
+        private $_isAdmin;
+        
+        public function __construct($username, $password){
+            parent::__construct($username, $password);
+        }
 	/**
 	 * Authenticates a user.
 	 * @return boolean whether authentication succeeds.
@@ -25,10 +29,11 @@ class UserIdentity extends CUserIdentity
 			$this->_id=$user->id;
 			$this->username=$user->username;
 			$this->errorCode=self::ERROR_NONE;
+                        
+                        $this->_isAdmin=$user->isAdmin();
 		}
-		return $this->errorCode==self::ERROR_NONE;
+		return $this->errorCode===self::ERROR_NONE;
 	}
-
 	/**
 	 * @return integer the ID of the user record
 	 */
@@ -36,4 +41,7 @@ class UserIdentity extends CUserIdentity
 	{
 		return $this->_id;
 	}
+        public function isAdmin(){
+            return $this->_isAdmin;
+        }
 }
