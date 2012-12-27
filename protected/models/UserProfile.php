@@ -126,7 +126,7 @@ class UserProfile extends CActiveRecord
 	}
         public function getGenderOptions(){
             return array(
-                self::Nam=>self::STRING_NAM,
+                self::NAM=>self::STRING_NAM,
                 self::NU=>self::STRING_NU,
             );
         }
