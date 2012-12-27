@@ -32,11 +32,11 @@ return array(
                 'admin',
                 'rights'=>array(
                     'superuserName'=>'admin',
-                    'install'=>true,      // Enables the installer.
+                    'install'=>false,      // Enables the installer.
                 ),
 		
 	),
-
+    
 	// application components
 	'components'=>array(
 		'user'=>array(
@@ -59,20 +59,14 @@ return array(
                     ),
                 ),   
 		'db'=>array(
-			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
-		),
-                'db' => require(dirname(__FILE__) . '/db.php'),
-		
-		// uncomment the following to use a MySQL database
-		/*
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'connectionString' => 'mysql:host=localhost;dbname=chie_db',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
+                        'tablePrefix'=>'chie_',
 		),
-		*/
+		
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
