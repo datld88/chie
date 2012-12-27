@@ -1,15 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "chie_activity_types".
+ * This is the model class for table "{{activity_types}}".
  *
- * The followings are the available columns in table 'chie_activity_types':
- * @property string $id
+ * The followings are the available columns in table '{{activity_types}}':
+ * @property integer $id
  * @property integer $game_id
  * @property string $module
  * @property string $controller
  * @property string $action
  * @property string $name
+ *
+ * The followings are the available model relations:
+ * @property Game $game
+ * @property LogUserPlaygame[] $logUserPlaygames
  */
 class ActivityTypes extends CActiveRecord
 {
@@ -28,7 +32,7 @@ class ActivityTypes extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_activity_types';
+		return '{{activity_types}}';
 	}
 
 	/**
@@ -39,9 +43,8 @@ class ActivityTypes extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			array('game_id', 'required'),
 			array('game_id', 'numerical', 'integerOnly'=>true),
-			array('id', 'length', 'max'=>10),
 			array('module, controller, action', 'length', 'max'=>100),
 			array('name', 'length', 'max'=>200),
 			// The following rule is used by search().
@@ -58,6 +61,8 @@ class ActivityTypes extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'game' => array(self::BELONGS_TO, 'Game', 'game_id'),
+			'logUserPlaygames' => array(self::HAS_MANY, 'LogUserPlaygame', 'activity_id'),
 		);
 	}
 
@@ -87,7 +92,7 @@ class ActivityTypes extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
+		$criteria->compare('id',$this->id);
 		$criteria->compare('game_id',$this->game_id);
 		$criteria->compare('module',$this->module,true);
 		$criteria->compare('controller',$this->controller,true);
