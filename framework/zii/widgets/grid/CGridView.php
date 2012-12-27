@@ -406,7 +406,6 @@ class CGridView extends CBaseListView
 
 		$options=CJavaScript::encode($options);
 		$cs=Yii::app()->getClientScript();
-		$cs->registerCoreScript('jquery');
 		$cs->registerCoreScript('bbq');
 		if($this->enableHistory)
 			$cs->registerCoreScript('history');
