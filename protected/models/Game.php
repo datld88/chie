@@ -1,13 +1,13 @@
 <?php
 
 /**
- * This is the model class for table "chie_game".
+ * This is the model class for table "{{game}}".
  *
- * The followings are the available columns in table 'chie_game':
+ * The followings are the available columns in table '{{game}}':
  * @property integer $id
  * @property string $name
  * @property integer $publisher_id
- * @property string $sort_description
+ * @property string $short_description
  * @property string $full_descripition
  * @property integer $released_at
  * @property integer $count_game
@@ -17,6 +17,16 @@
  * @property integer $is_featured
  * @property double $rate_point
  * @property string $playnow_title
+ *
+ * The followings are the available model relations:
+ * @property ActivityTypes[] $activityTypes
+ * @property Publisher $publisher
+ * @property GameMedia[] $gameMedias
+ * @property News[] $chieNews
+ * @property GameRelated[] $gameRelateds
+ * @property LogComment[] $logComments
+ * @property LogUserPlaygame[] $logUserPlaygames
+ * @property UserLogRate[] $userLogRates
  */
 class Game extends CActiveRecord
 {
@@ -35,7 +45,7 @@ class Game extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_game';
+		return '{{game}}';
 	}
 
 	/**
@@ -46,14 +56,15 @@ class Game extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('name, publisher_id', 'required'),
 			array('publisher_id, released_at, count_game, count_news, count_user_rated, is_hot, is_featured', 'numerical', 'integerOnly'=>true),
 			array('rate_point', 'numerical'),
-			array('name, sort_description', 'length', 'max'=>200),
+			array('name, short_description', 'length', 'max'=>200),
 			array('playnow_title', 'length', 'max'=>255),
 			array('full_descripition', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, publisher_id, sort_description, full_descripition, released_at, count_game, count_news, count_user_rated, is_hot, is_featured, rate_point, playnow_title', 'safe', 'on'=>'search'),
+			array('id, name, publisher_id, short_description, full_descripition, released_at, count_game, count_news, count_user_rated, is_hot, is_featured, rate_point, playnow_title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +76,14 @@ class Game extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'activityTypes' => array(self::HAS_MANY, 'ActivityTypes', 'game_id'),
+			'publisher' => array(self::BELONGS_TO, 'Publisher', 'publisher_id'),
+			'gameMedias' => array(self::HAS_MANY, 'GameMedia', 'game_id'),
+			'chieNews' => array(self::MANY_MANY, 'News', '{{game_news}}(game_id, news_id)'),
+			'gameRelateds' => array(self::HAS_MANY, 'GameRelated', 'game_id'),
+			'logComments' => array(self::HAS_MANY, 'LogComment', 'game_id'),
+			'logUserPlaygames' => array(self::HAS_MANY, 'LogUserPlaygame', 'game_id'),
+			'userLogRates' => array(self::HAS_MANY, 'UserLogRate', 'game_id'),
 		);
 	}
 
@@ -77,7 +96,7 @@ class Game extends CActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'publisher_id' => 'Publisher',
-			'sort_description' => 'Sort Description',
+			'short_description' => 'Short Description',
 			'full_descripition' => 'Full Descripition',
 			'released_at' => 'Released At',
 			'count_game' => 'Count Game',
@@ -104,7 +123,7 @@ class Game extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('publisher_id',$this->publisher_id);
-		$criteria->compare('sort_description',$this->sort_description,true);
+		$criteria->compare('short_description',$this->short_description,true);
 		$criteria->compare('full_descripition',$this->full_descripition,true);
 		$criteria->compare('released_at',$this->released_at);
 		$criteria->compare('count_game',$this->count_game);
