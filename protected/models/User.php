@@ -123,10 +123,10 @@ class User extends CActiveRecord
         
         protected function beforeSave(){
             if(parent::beforeSave()){
-                $salt_len=7;
-                $this->salt=$this->_randomString($salt_len);
-                $this->password=md5($this->password.$this->salt);
-                $this->updated_at=time();
+                $salt_len=7;    //declare length(salt)=7
+                $this->salt=$this->_randomString($salt_len);//tạo một string 7 ký tự ngẫu nhiên cho salt
+                $this->password=md5($this->password.$this->salt);   //lưu password trong DB là md5 của password + salt
+                $this->updated_at=time();  
                 if($this->isNewRecord)
                     $this->created_at=time();
                 return true;
