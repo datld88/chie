@@ -13,12 +13,11 @@
 		<link href="<?php echo $themeAdmin ?>/css/bootstrap-responsive.css" rel="stylesheet">
 		<link href="<?php echo $themeAdmin ?>/js/google-code-prettify/prettify.css" rel="stylesheet">
 
-
-		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-
 		<!-- Le fav and touch icons
 		<link rel="shortcut icon" href="ico/favicon.ico">
 		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo $themeAdmin ?>/ico/apple-touch-icon-144-precomposed.png">
@@ -37,7 +36,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a href="./index.html" class="brand">Trang quản trị X50</a>
+                            <a href="<?php echo Yii::app()->createUrl('/admin');?>" class="brand">CHIE ADMINISTRATOR</a>
                             <div class="nav-collapse collapse">
                                 <?php
                                 $this->widget('zii.widgets.CMenu', array(
@@ -46,6 +45,9 @@
                                     'items' => $this->menu,
                                 ));
                                 ?>
+                            </div>
+                            <div id="logout" class="offset11">
+                                <a class="btn btn-large btn-danger" href="<?php echo Yii::app()->createUrl('/admin/default/logout');?>" title="Đăng Xuất"><i class="icon-off icon-white"></i></a>
                             </div>
                         </div>
                     </div>
@@ -57,20 +59,22 @@
                         <div class="accordion-group">
                             <div class="accordion-heading">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                                    Danh Mục và tin tức
+                                    Quản Lý Tài Khoản User
                                 </a>
                             </div>
-                            <div id="collapseOne" class="accordion-body collapse <?php if(Yii::app()->controller->id=='category' || Yii::app()->controller->id=='news'){echo 'in';} ?>">
+                            <div id="collapseOne" class="accordion-body collapse 
+                                <?php if(Yii::app()->controller->id=='user' || Yii::app()->controller->id==='userprofile') {echo 'in';} ?>">
                                 <div class="accordion-inner">
                                     <ul class="sub-menu">
-                                        <li class="<?php if(Yii::app()->controller->action->id=='admin'&&Yii::app()->controller->id=='category'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/category/admin'); ?>"><i class="icon icon-list"></i>D.Sách danh mục</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='category'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/category/create'); ?>"><i class="icon icon-pencil"></i>Thêm danh mục</a></li>
-                                        <li class="divider"></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='admin'&&Yii::app()->controller->id=='news'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/news/admin'); ?>"><i class="icon icon-list"></i>D.Sách tin tức</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='news'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/news/create'); ?>"><i class="icon icon-pencil"></i>Thêm tin tức</a></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/admin/news/updateSimple',array('id'=>News::gioithieuid)); ?>"><i class="icon icon-pencil"></i>Bài giới thiệu</a></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/admin/news/updateSimple',array('id'=>News::dieuleid)); ?>"><i class="icon icon-pencil"></i>Điều lệ hội</a></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/admin/news/updateSimple',array('id'=>News::bancovanid)); ?>"><i class="icon icon-pencil"></i>DS ban cố vấn</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='index'&&Yii::app()->controller->id=='user'){echo 'active';} ?>">
+                                            <a href="<?php echo Yii::app()->createUrl('/admin/user/index'); ?>"><i class="icon icon-list"></i>Danh Sách User</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='user'){echo 'active';} ?>">
+                                            <a href="<?php echo Yii::app()->createUrl('/admin/user/create'); ?>"><i class="icon icon-pencil"></i>Thêm Tài Khoản User</a></li>
+                                        <li class="divider"></li>                                        
+                                        <li class="<?php if(Yii::app()->controller->action->id=='index' && Yii::app()->controller->id=='userprofile') echo 'active';?>">
+                                            <a href="<?php echo Yii::app()->createUrl('/admin/userprofile/index');?>"><i class="icon icon-list"></i>Danh Sách User Profile</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='create' && Yii::app()->controller->id=='userprofile') echo 'active';?>">
+                                            <a href="<?php echo Yii::app()->createUrl('/admin/userprofile/create');?>"><i class="icon icon-pencil"></i>Thêm User Profile</i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -155,16 +159,32 @@
                     
                 <div class="main">
                     <div class="inner">
-                        <?php echo $content ?>
+                        <!-- Thêm nút create -->
+                        
+                        <div class ="btn-group" style="float:right">
+                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-plus icon-white"></i>
+                                Thêm<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo Yii::app()->createUrl('/admin/user/create');?>">Thêm User</a></li>
+                                <li><a href="<?php echo Yii::app()->createUrl('/admin/userprofile/create');?>">Thêm User Profile</a>
+                            </ul>
+                        </div>
+                        
+                        <?php echo $content;?>
                     </div>
                 </div>
             </div>
-        </body>
+        
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster-->
-	<script src="<?php echo $themeAdmin ?>/js/google-code-prettify/prettify.js"></script>
-	<script src="<?php echo $themeAdmin ?>/js/bootstrap.js"></script>
-	<script src="<?php echo $themeAdmin ?>/js/application.js"></script>
+        <script type="text/javascript" src="<?php echo $themeAdmin;?>js/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo $themeAdmin ?>/js/google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="<?php echo $themeAdmin ?>/js/bootstrap.js"></script>
+	<script type="text/javascript" src="<?php echo $themeAdmin ?>/js/application.js"></script>
         <script type="text/javascript" src="<?php echo $themeAdmin; ?>js/Loading.js"></script>
+        <script type="text/javascript" src="<?php echo $themeAdmin;?>js/jquery.yiigridview.js"></script>
+        <script type="text/javascript" src="<?php echo $themeAdmin;?>js/jquery.ba-bbq.js"></script>
+        </body>
 </html>
