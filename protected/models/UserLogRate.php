@@ -1,14 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "chie_user_log_rate".
+ * This is the model class for table "{{user_log_rate}}".
  *
- * The followings are the available columns in table 'chie_user_log_rate':
+ * The followings are the available columns in table '{{user_log_rate}}':
  * @property integer $id
  * @property integer $game_id
  * @property integer $user_id
  * @property integer $rate_point
  * @property integer $rated_at
+ *
+ * The followings are the available model relations:
+ * @property Game $game
+ * @property User $user
  */
 class UserLogRate extends CActiveRecord
 {
@@ -27,7 +31,7 @@ class UserLogRate extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_user_log_rate';
+		return '{{user_log_rate}}';
 	}
 
 	/**
@@ -38,6 +42,7 @@ class UserLogRate extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('game_id, user_id', 'required'),
 			array('game_id, user_id, rate_point, rated_at', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -53,6 +58,8 @@ class UserLogRate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'game' => array(self::BELONGS_TO, 'Game', 'game_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 

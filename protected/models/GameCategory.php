@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "chie_game_category".
+ * This is the model class for table "{{game_category}}".
  *
- * The followings are the available columns in table 'chie_game_category':
+ * The followings are the available columns in table '{{game_category}}':
  * @property integer $id
  * @property string $name
  * @property integer $parent_id
@@ -17,6 +17,10 @@
  * @property string $description
  * @property integer $sort_order
  * @property integer $is_featured
+ *
+ * The followings are the available model relations:
+ * @property GameCategory $parent
+ * @property GameCategory[] $gameCategories
  */
 class GameCategory extends CActiveRecord
 {
@@ -35,7 +39,7 @@ class GameCategory extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_game_category';
+		return '{{game_category}}';
 	}
 
 	/**
@@ -46,6 +50,7 @@ class GameCategory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('name', 'required'),
 			array('parent_id, created_at, updated_at, position, level, count_children, sort_order, is_featured', 'numerical', 'integerOnly'=>true),
 			array('name, image, description', 'length', 'max'=>200),
 			array('path', 'length', 'max'=>100),
@@ -63,6 +68,8 @@ class GameCategory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'parent' => array(self::BELONGS_TO, 'GameCategory', 'parent_id'),
+			'gameCategories' => array(self::HAS_MANY, 'GameCategory', 'parent_id'),
 		);
 	}
 

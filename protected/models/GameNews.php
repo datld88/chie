@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "chie_game_news".
+ * This is the model class for table "{{game_news}}".
  *
- * The followings are the available columns in table 'chie_game_news':
+ * The followings are the available columns in table '{{game_news}}':
  * @property integer $game_id
  * @property integer $news_id
  * @property integer $position
@@ -27,7 +27,7 @@ class GameNews extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_game_news';
+		return '{{game_news}}';
 	}
 
 	/**
@@ -38,6 +38,7 @@ class GameNews extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('game_id, news_id', 'required'),
 			array('game_id, news_id, position, is_featured, is_top', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

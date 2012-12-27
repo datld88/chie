@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "chie_publisher".
+ * This is the model class for table "{{publisher}}".
  *
- * The followings are the available columns in table 'chie_publisher':
+ * The followings are the available columns in table '{{publisher}}':
  * @property integer $id
  * @property string $name
  * @property integer $status
@@ -18,10 +18,15 @@
  * @property integer $level
  * @property integer $is_vip
  * @property integer $count_game
+ *
+ * The followings are the available model relations:
+ * @property Game[] $games
  */
 class Publisher extends CActiveRecord
 {
-	/**
+    const VIP=1;
+    const NOT_VIP=0;
+    	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Publisher the static model class
@@ -36,7 +41,7 @@ class Publisher extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_publisher';
+		return '{{publisher}}';
 	}
 
 	/**
@@ -47,10 +52,11 @@ class Publisher extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('name', 'required'),
 			array('status, created_at, updated_at, level, is_vip, count_game', 'numerical', 'integerOnly'=>true),
 			array('name, logo_path, address', 'length', 'max'=>200),
 			array('logo, website', 'length', 'max'=>100),
-			array('phone, hotline', 'length', 'max'=>10),
+			array('phone, hotline', 'length', 'max'=>15),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, status, logo, logo_path, created_at, updated_at, address, phone, hotline, website, level, is_vip, count_game', 'safe', 'on'=>'search'),
@@ -65,6 +71,7 @@ class Publisher extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'games' => array(self::HAS_MANY, 'Game', 'publisher_id'),
 		);
 	}
 
@@ -101,7 +108,7 @@ class Publisher extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
+                
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('status',$this->status);

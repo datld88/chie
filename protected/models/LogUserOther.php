@@ -1,11 +1,15 @@
 <?php
 
 /**
- * This is the model class for table "chie_log_user_other".
+ * This is the model class for table "{{log_user_other}}".
  *
- * The followings are the available columns in table 'chie_log_user_other':
+ * The followings are the available columns in table '{{log_user_other}}':
  * @property integer $id
  * @property string $note
+ * @property integer $user_id
+ *
+ * The followings are the available model relations:
+ * @property User $user
  */
 class LogUserOther extends CActiveRecord
 {
@@ -24,7 +28,7 @@ class LogUserOther extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_log_user_other';
+		return '{{log_user_other}}';
 	}
 
 	/**
@@ -35,10 +39,12 @@ class LogUserOther extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('user_id', 'required'),
+			array('user_id', 'numerical', 'integerOnly'=>true),
 			array('note', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, note', 'safe', 'on'=>'search'),
+			array('id, note, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,6 +56,7 @@ class LogUserOther extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -61,6 +68,7 @@ class LogUserOther extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'note' => 'Note',
+			'user_id' => 'User',
 		);
 	}
 
@@ -77,6 +85,7 @@ class LogUserOther extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('note',$this->note,true);
+		$criteria->compare('user_id',$this->user_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

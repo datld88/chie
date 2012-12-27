@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "chie_news".
+ * This is the model class for table "{{news}}".
  *
- * The followings are the available columns in table 'chie_news':
+ * The followings are the available columns in table '{{news}}':
  * @property integer $id
  * @property string $title
  * @property string $summary
@@ -11,6 +11,10 @@
  * @property integer $created_at
  * @property integer $status
  * @property integer $position
+ * @property integer $is_event
+ *
+ * The followings are the available model relations:
+ * @property Game[] $chieGames
  */
 class News extends CActiveRecord
 {
@@ -29,7 +33,7 @@ class News extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_news';
+		return '{{news}}';
 	}
 
 	/**
@@ -40,13 +44,14 @@ class News extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created_at, status, position', 'numerical', 'integerOnly'=>true),
+			array('title', 'required'),
+			array('created_at, status, position, is_event', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>200),
 			array('summary', 'length', 'max'=>255),
 			array('content', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, summary, content, created_at, status, position', 'safe', 'on'=>'search'),
+			array('id, title, summary, content, created_at, status, position, is_event', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +63,7 @@ class News extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'chieGames' => array(self::MANY_MANY, 'Game', '{{game_news}}(news_id, game_id)'),
 		);
 	}
 
@@ -74,6 +80,7 @@ class News extends CActiveRecord
 			'created_at' => 'Created At',
 			'status' => 'Status',
 			'position' => 'Position',
+			'is_event' => 'Is Event',
 		);
 	}
 
@@ -95,6 +102,7 @@ class News extends CActiveRecord
 		$criteria->compare('created_at',$this->created_at);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('position',$this->position);
+		$criteria->compare('is_event',$this->is_event);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

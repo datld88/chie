@@ -1,14 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "chie_game_media".
+ * This is the model class for table "{{game_media}}".
  *
- * The followings are the available columns in table 'chie_game_media':
+ * The followings are the available columns in table '{{game_media}}':
+ * @property integer $id
  * @property integer $game_id
  * @property string $type
  * @property string $link
  * @property integer $position
  * @property integer $is_avatar
+ *
+ * The followings are the available model relations:
+ * @property Game $game
  */
 class GameMedia extends CActiveRecord
 {
@@ -27,7 +31,7 @@ class GameMedia extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_game_media';
+		return '{{game_media}}';
 	}
 
 	/**
@@ -38,11 +42,12 @@ class GameMedia extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('game_id', 'required'),
 			array('game_id, position, is_avatar', 'numerical', 'integerOnly'=>true),
 			array('type, link', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('game_id, type, link, position, is_avatar', 'safe', 'on'=>'search'),
+			array('id, game_id, type, link, position, is_avatar', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,6 +59,7 @@ class GameMedia extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'game' => array(self::BELONGS_TO, 'Game', 'game_id'),
 		);
 	}
 
@@ -63,6 +69,7 @@ class GameMedia extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'game_id' => 'Game',
 			'type' => 'Type',
 			'link' => 'Link',
@@ -82,6 +89,7 @@ class GameMedia extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('game_id',$this->game_id);
 		$criteria->compare('type',$this->type,true);
 		$criteria->compare('link',$this->link,true);

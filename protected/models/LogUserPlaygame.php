@@ -1,14 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "chie_log_user_playgame".
+ * This is the model class for table "{{log_user_playgame}}".
  *
- * The followings are the available columns in table 'chie_log_user_playgame':
+ * The followings are the available columns in table '{{log_user_playgame}}':
  * @property integer $id
  * @property integer $user_id
  * @property integer $game_id
  * @property integer $activity_id
  * @property integer $created_at
+ *
+ * The followings are the available model relations:
+ * @property Game $game
+ * @property ActivityTypes $activity
+ * @property User $user
  */
 class LogUserPlaygame extends CActiveRecord
 {
@@ -27,7 +32,7 @@ class LogUserPlaygame extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_log_user_playgame';
+		return '{{log_user_playgame}}';
 	}
 
 	/**
@@ -38,6 +43,7 @@ class LogUserPlaygame extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('user_id, game_id, activity_id', 'required'),
 			array('user_id, game_id, activity_id, created_at', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -53,6 +59,9 @@ class LogUserPlaygame extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'game' => array(self::BELONGS_TO, 'Game', 'game_id'),
+			'activity' => array(self::BELONGS_TO, 'ActivityTypes', 'activity_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 

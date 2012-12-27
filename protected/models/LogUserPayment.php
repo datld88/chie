@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "chie_log_user_payment".
+ * This is the model class for table "{{log_user_payment}}".
  *
- * The followings are the available columns in table 'chie_log_user_payment':
+ * The followings are the available columns in table '{{log_user_payment}}':
  * @property integer $id
  * @property string $type
  * @property string $serial
@@ -11,6 +11,11 @@
  * @property string $price
  * @property integer $created_at
  * @property integer $transactionId
+ * @property string $gateway
+ * @property integer $user_id
+ *
+ * The followings are the available model relations:
+ * @property User $user
  */
 class LogUserPayment extends CActiveRecord
 {
@@ -29,7 +34,7 @@ class LogUserPayment extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_log_user_payment';
+		return '{{log_user_payment}}';
 	}
 
 	/**
@@ -40,12 +45,14 @@ class LogUserPayment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('created_at, transactionId', 'numerical', 'integerOnly'=>true),
+			array('user_id', 'required'),
+			array('created_at, transactionId, user_id', 'numerical', 'integerOnly'=>true),
 			array('type, serial, cardnumber', 'length', 'max'=>100),
 			array('price', 'length', 'max'=>16),
+			array('gateway', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, type, serial, cardnumber, price, created_at, transactionId', 'safe', 'on'=>'search'),
+			array('id, type, serial, cardnumber, price, created_at, transactionId, gateway, user_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +64,7 @@ class LogUserPayment extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
 	}
 
@@ -73,6 +81,8 @@ class LogUserPayment extends CActiveRecord
 			'price' => 'Price',
 			'created_at' => 'Created At',
 			'transactionId' => 'Transaction',
+			'gateway' => 'Gateway',
+			'user_id' => 'User',
 		);
 	}
 
@@ -94,6 +104,8 @@ class LogUserPayment extends CActiveRecord
 		$criteria->compare('price',$this->price,true);
 		$criteria->compare('created_at',$this->created_at);
 		$criteria->compare('transactionId',$this->transactionId);
+		$criteria->compare('gateway',$this->gateway,true);
+		$criteria->compare('user_id',$this->user_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

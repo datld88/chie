@@ -1,15 +1,19 @@
 <?php
 
 /**
- * This is the model class for table "chie_log_comment".
+ * This is the model class for table "{{log_comment}}".
  *
- * The followings are the available columns in table 'chie_log_comment':
+ * The followings are the available columns in table '{{log_comment}}':
  * @property integer $id
  * @property integer $user_id
  * @property integer $game_id
  * @property string $title
  * @property string $content
  * @property integer $created_at
+ *
+ * The followings are the available model relations:
+ * @property User $user
+ * @property Game $game
  */
 class LogComment extends CActiveRecord
 {
@@ -28,7 +32,7 @@ class LogComment extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_log_comment';
+		return '{{log_comment}}';
 	}
 
 	/**
@@ -39,6 +43,7 @@ class LogComment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('user_id, game_id', 'required'),
 			array('user_id, game_id, created_at', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>100),
 			array('content', 'length', 'max'=>255),
@@ -56,6 +61,8 @@ class LogComment extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'game' => array(self::BELONGS_TO, 'Game', 'game_id'),
 		);
 	}
 

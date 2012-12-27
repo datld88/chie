@@ -1,13 +1,16 @@
 <?php
 
 /**
- * This is the model class for table "chie_game_related".
+ * This is the model class for table "{{game_related}}".
  *
- * The followings are the available columns in table 'chie_game_related':
+ * The followings are the available columns in table '{{game_related}}':
  * @property integer $game_id
  * @property integer $game_related_id
  * @property integer $position
  * @property integer $is_featured
+ *
+ * The followings are the available model relations:
+ * @property Game $game
  */
 class GameRelated extends CActiveRecord
 {
@@ -26,7 +29,7 @@ class GameRelated extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'chie_game_related';
+		return '{{game_related}}';
 	}
 
 	/**
@@ -37,6 +40,7 @@ class GameRelated extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('game_id, game_related_id', 'required'),
 			array('game_id, game_related_id, position, is_featured', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -52,6 +56,7 @@ class GameRelated extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'game' => array(self::BELONGS_TO, 'Game', 'game_id'),
 		);
 	}
 
