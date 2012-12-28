@@ -26,6 +26,13 @@ class Publisher extends CActiveRecord
 {
     const VIP=1;
     const NOT_VIP=0;
+    const VIP_STRING='VIP';
+    const NOT_VIP_STRING='NOT VIP';
+    
+    const STATUS_ACTIVE=1;
+    const STATUS_NOT_ACTIVE=0;
+    const STATUS_ACTIVE_STRING='Active';
+    const STATUS_NOT_ACTIVE_STRING='Not Active';
     	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -128,4 +135,37 @@ class Publisher extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        //override function beforeSave()
+        protected function beforeSave() {
+            if(parent::beforeSave()){
+                $this->updated_at=time();
+                if($this->isNewRecord)
+                    $this->created_at=time();
+                return true;
+            }
+            return false;
+        }
+        //return all list of ACTIVE publisher on database
+        public function listPublishers(){
+            $publishers=self::model()->findAll(array(
+                'select'=>'id, name',
+                'condition'=>'status=:status',
+                'params'=>array(':status'=>self::STATUS_ACTIVE),
+            ));
+            $list=array();
+            if(!empty($publishers)){
+                foreach($publishers as $publisher){
+                    $list[$publisher->id]=$publisher->name;
+                }
+            }
+            return $list;
+        }
+        //return status string of publisher
+        public function publisherStatusString(){
+            return ($this->status===self::STATUS_ACTIVE ? self::STATUS_ACTIVE_STRING : self::STATUS_NOT_ACTIVE_STRING);
+        }
+        public function publisherVipString(){
+            return ($this->is_vip===self::VIP ? self::VIP_STRING : self::NOT_VIP_STRING);
+        }
 }

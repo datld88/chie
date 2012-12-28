@@ -1,16 +1,20 @@
 <?php
 
-class GameController extends Controller
+class GameController extends AdminController
 {
 	public function action_form()
 	{
 		$this->render('_form');
 	}
 
-	public function actionAdmin()
-	{
-		$this->render('admin');
-	}
+	public function actionIndex(){
+            $model=new Game('search');
+            $model->unsetAttributes();
+            
+            if(isset($_GET['Game']))
+                $model->attributes=$_GET['Game'];
+            $this->render('index', array('model'=>$model));
+        }
 
 	public function actionCreate()
 	{

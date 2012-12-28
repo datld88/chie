@@ -37,6 +37,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         'is_admin',
         array(
+            'header'=>'Actions',
             'class'=>'CButtonColumn',
             'template'=>'{view} {update} {delete} {CreateUserProfile}',
             'buttons'=>array(

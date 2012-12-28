@@ -7,7 +7,7 @@
  * @property integer $id
  * @property string $note
  * @property integer $user_id
- *
+ * @property integer $created_at
  * The followings are the available model relations:
  * @property User $user
  */
