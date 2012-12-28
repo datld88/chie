@@ -138,4 +138,8 @@ class Game extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        
+        public function getPublisherName(){
+            return ($this->publisher->name);
+        }
 }
