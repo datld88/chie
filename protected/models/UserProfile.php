@@ -56,7 +56,7 @@ class UserProfile extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id', 'required'),
-                        array('user_id', 'checkUserId'),
+                        array('user_id', 'checkUserId', 'on'=>'create'),
 			array('user_id, created_at, updated_at, city_id', 'numerical', 'integerOnly'=>true),
                         array('gender', 'boolean'),
 			array('full_name, address, avatar, avatar_path, email', 'length', 'max'=>200),
