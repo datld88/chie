@@ -12,9 +12,6 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-<div class ="btn-group" style="float:right">    
-        <a href="<?php echo Yii::app()->createUrl('/admin/publisher/create');?>" class="btn btn-primary"><i class="icon-plus icon-white"></i>Thêm</a>
-</div>
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
     'id'=>'publisher-grid',
@@ -23,14 +20,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'htmlOptions'=>array('class'=>'table table-bordered table-hover'),
     'columns'=>array(
         'name',
-        'status',
+        array(
+            'name'=>'status',
+            'value'=>'$data->publisherStatusString()',
+        ),
         'logo',
         'address',
         'phone',
         'hotline',
         'website',
         'level',
-        'is_vip',
+        array(
+            'name'=>'is_vip',
+            'value'=>'$data->publisherVipString()',
+        ),
         'count_game',
         array(
             'name'=>'created_at',
@@ -42,7 +45,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         array(
             'class'=>'CButtonColumn',
-        )
+        ),
     ),
+    'itemsCssClass'=>'table table-filter table-bordered table-hover',
 ));
 ?>

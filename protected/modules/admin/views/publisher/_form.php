@@ -1,14 +1,15 @@
-<?php
-/* @var $this PublisherController */
-
-$this->breadcrumbs=array(
-	'Publisher'=>array('/admin/publisher'),
-	'_form',
-);
-?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
-
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
+<div class="form">
+    <?php $form=$this->beginWidget('CActiveForm', array(
+        'id'=>'publisher-form',
+        'enableAjaxValidation'=>false,
+    ));
+    ?>
+    <p class="note">Fields with<span class="required">*</span> are required</p>
+    <?php echo $form->errorSummary($model); ?>
+    <div class="row">
+        <?php
+            
+        ?>
+    </div>
+    <?php $this->endWidget();?>
+</div>
