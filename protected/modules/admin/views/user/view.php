@@ -47,7 +47,26 @@
             </div>
             
             </div>
-        
+        <div class="tab-pane row-fluid" id="tab7">
+            <?php 
+                if(empty($user->logUserOthers))
+                    echo 'Không có Log';
+                else{
+                    echo '<table class="table table-hover table-bordered">';
+                    echo '<caption><h4>Log User Other</h4></caption>';
+                    echo '<thead><tr><th>Created At</th><th>Note</th></tr></thead>';
+                    echo '<tbody>';
+                    foreach($user->logUserOthers as $log){
+                        echo '<tr>';
+                        echo '<td>', date("r", $log['created_at']), '</td>';
+                        echo '<td>', $log['note'], '</td>';
+                        echo '</tr>';
+                    }
+                    echo '</tbody>';
+                    echo '</table>';
+                }
+            ?>
+        </div>
         <div class="tab-pane" id="tab2">
             <div class="row-fluid">
             </div>
