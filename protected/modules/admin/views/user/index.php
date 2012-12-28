@@ -45,6 +45,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                     'url'=>'Yii::app()->createUrl("/admin/userprofile/create/", array("id"=>$data->id))',
                     'imageUrl'=>'',
                     'options'=>array('class'=>'icon-user'),
+                    'visible'=>'$data->hasProfile()==false',
                 ),
             ),
         ),
