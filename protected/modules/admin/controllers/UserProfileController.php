@@ -19,21 +19,19 @@ class UserProfileController extends AdminController{
         if(isset($_GET['UserProfile']))
             $model->attributes=$_GET['UserProfile'];
         $this->render('index', array('model'=>$model));
-        
     }
-    
     public function actionView($id){
         $this->redirect(Yii::app()->createUrl('/admin/user/view/id/'.$id));
     }
-    public function actionCreate(){
-        if(!isset($_GET['id']))
-        {
-            $this->redirect(Yii::app()->createUrl('/admin/user/'));
-        }
-        //models
+    public function actionCreate($id){
+        //user id da ton tai profile?
+        $user_id=(int)$id;
+        $profile=UserProfile::model()->findByPk($user_id);
+        if($profile!==null)
+            $this->redirect(Yii::app()->createUrl('/admin/userprofile/view/id/'.$user_id));
         $model = new UserProfile;
-        //Yii::import("xupload.models.XUploadForm");
-        //$photos=new XUploadForm;
+        Yii::import("xupload.models.XUploadForm");
+        $photos=new XUploadForm;
         if(isset($_POST['UserProfile'])){
             //clean xss code
             $_POST['UserProfile']=$this->cleanXss($_POST['UserProfile']);
@@ -41,7 +39,7 @@ class UserProfileController extends AdminController{
             if($model->save())
                 $this->redirect(Yii::app()->createUrl('/admin/user/view/id/'.$model->user_id));
             }
-            $user_id=(int)$_GET['id'];
+            
             //tìm thông tin user
             $user=User::model()->findByPk($user_id);
             if($user===null){
@@ -50,6 +48,7 @@ class UserProfileController extends AdminController{
             }
             $this->render('create', array('model'=>$model, 'user'=>$user, 'photos'=>$photos));
     }
+    
     public function actionDelete($id){
         $this->loadModel($id)->delete();
         //if ajax request don't redirect
