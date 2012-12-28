@@ -88,21 +88,23 @@
             <?php echo $form->hiddenField($model, 'user_id', array('value'=>$user_id));?>
         </div>
         
-        <!--Upload avatar -->
+        <!--Upload avatar
         <div class="control-group">
-            <?php echo $form->labelEx($model, 'avatar', array('class'=>'control-label'));?>
+            <?php //echo $form->labelEx($model, 'avatar', array('class'=>'control-label'));?>
             <div class="controls">
                 <?php
-                    $this->widget('xupload.XUpload', array(
+                /*    $this->widget('xupload.XUpload', array(
                         'url'=>Yii::app()->createUrl('/admin/userprofile/create/id/'.$user_id),
                         'model'=>$photos,
                         'attribute'=>'file',
                         'multiple'=>false,
                     ))
+                 * 
+                 */
                 ?>
             </div>
         </div>
-        
+        -->
         <!--Submit -->
     <div class="controls">
         <?php echo Chtml::submitButton($model->isNewRecord? 'Create' : 'Save', array('class'=>'btn btn-success'));?>
