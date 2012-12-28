@@ -1,46 +1,32 @@
 <?php
 
-class PublisherController extends Controller
+class PublisherController extends AdminController
 {
-	public function action_form()
-	{
-		$this->render('_form');
-	}
-
-	public function actionAdmin()
-	{
-		$this->render('admin');
-	}
-
-	public function actionCreate()
-	{
-		$this->render('create');
-	}
-
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
+	public function actionCreate(){
+            
+        }
+        
+        public function actionIndex(){
+            $model=new Publisher('search');
+            $model->unsetAttributes();
+            if(isset($_GET['Publisher']))
+                $model->attributes=$_GET['Publisher'];
+            $this->render('index', array('model'=>$model));
+        }
+        
+        public function actionView($id){
+            
+        }
+        public function actionDelete($id){
+            
+        }
+        public function actonUpdate($id){
+            
+        }
+        public function loadModel($id){
+            $model=Publisher::model()->findByPk($id);
+            if($model===null)
+                throw new CHttpException(404, 'Không tìm thấy trang cần tìm');
+            return $model;
+        }
 }
