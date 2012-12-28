@@ -37,6 +37,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         ),
         'is_admin',
         array(
+            'header'=>'Actions',
             'class'=>'CButtonColumn',
             'template'=>'{view} {update} {delete} {CreateUserProfile}',
             'buttons'=>array(
@@ -45,6 +46,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
                     'url'=>'Yii::app()->createUrl("/admin/userprofile/create/", array("id"=>$data->id))',
                     'imageUrl'=>'',
                     'options'=>array('class'=>'icon-user'),
+                    
                 ),
             ),
         ),
