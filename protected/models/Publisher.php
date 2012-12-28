@@ -60,10 +60,12 @@ class Publisher extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('status, created_at, updated_at, level, is_vip, count_game', 'numerical', 'integerOnly'=>true),
+			array('phone, hotline, created_at, updated_at, level,, count_game', 'numerical', 'integerOnly'=>true),
 			array('name, logo_path, address', 'length', 'max'=>200),
+                         array('name', 'unique', 'className'=>'Publisher'),
 			array('logo, website', 'length', 'max'=>100),
 			array('phone, hotline', 'length', 'max'=>15),
+                        array('status, is_vip', 'boolean'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, status, logo, logo_path, created_at, updated_at, address, phone, hotline, website, level, is_vip, count_game', 'safe', 'on'=>'search'),
@@ -135,10 +137,10 @@ class Publisher extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-        
         //override function beforeSave()
         protected function beforeSave() {
             if(parent::beforeSave()){
+                $this->level=1;
                 $this->updated_at=time();
                 if($this->isNewRecord)
                     $this->created_at=time();
@@ -163,9 +165,27 @@ class Publisher extends CActiveRecord
         }
         //return status string of publisher
         public function publisherStatusString(){
-            return ($this->status===self::STATUS_ACTIVE ? self::STATUS_ACTIVE_STRING : self::STATUS_NOT_ACTIVE_STRING);
+            if($this->status==self::STATUS_ACTIVE)
+                return self::STATUS_ACTIVE_STRING;
+            return self::STATUS_NOT_ACTIVE_STRING;
+            
         }
         public function publisherVipString(){
-            return ($this->is_vip===self::VIP ? self::VIP_STRING : self::NOT_VIP_STRING);
+            if($this->is_vip==self::VIP)
+                return self::VIP_STRING;
+            return self::NOT_VIP_STRING;
+        }
+        
+        public function getStatusOptions(){
+            return array(
+                self::STATUS_ACTIVE=>self::STATUS_ACTIVE_STRING,
+                self::STATUS_NOT_ACTIVE=>self::STATUS_NOT_ACTIVE_STRING,
+            );
+        }
+        public function getVipOptions(){
+            return array(
+                self::VIP=>self::VIP_STRING,
+                self::NOT_VIP=>self::NOT_VIP_STRING,
+            );
         }
 }
