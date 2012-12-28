@@ -85,17 +85,17 @@
                         <div class="accordion-group">
                             <div class="accordion-heading">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                                    Tài khoản quản trị
+                                    Quản Trị Game
                                 </a>
                             </div>
-                            <div id="collapseTwo" class="accordion-body collapse <?php if(Yii::app()->controller->id=='user'){echo 'in';} ?>">
+                            <div id="collapseTwo" class="accordion-body collapse <?php if(Yii::app()->controller->id=='game' || Yii::app()->controller->id=='gamecategory'){echo 'in';} ?>">
                                 <div class="accordion-inner">
                                     <ul class="sub-menu">
-                                        <li class="<?php if(Yii::app()->controller->action->id=='admin'&&Yii::app()->controller->id=='user'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/user/admin'); ?>"><i class="icon icon-list"></i>D.Sách quản trị</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='user'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/user/create'); ?>"><i class="icon icon-pencil"></i>Thêm quản trị</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='index'&&Yii::app()->controller->id=='game'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/game/index'); ?>"><i class="icon icon-list"></i>Danh Sách Game</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='game'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/game/create'); ?>"><i class="icon icon-pencil"></i>Thêm Game</a></li>
                                         <li class="divider"></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/rights/authItem/permissions'); ?>"><i class="icon icon-list"></i>D.Sách quyền hạn</a></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/rights/assignment/view'); ?>"><i class="icon icon-pencil"></i>Thêm quyền hạn</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='index' && Yii::app()->controller->id=='gamecategory') echo 'active';?>"><a href="<?php echo Yii::app()->createUrl('/admin/gamecategory/index');?>"><i class="icon icon-list"></i>Danh Sách Danh Mục Game</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='create' && Yii::app()->controller->id=='gamecategory') echo 'active';?>"><a href="<?php echo Yii::app()->createUrl('/admin/gamecategory/create');?>"><i class="icon icon-list"></i>Thêm Danh Mục Game</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -103,20 +103,14 @@
                         <div class="accordion-group">
                             <div class="accordion-heading">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-                                    Quản lý thành viên
+                                    Quản lý Nhà Phát Hành
                                 </a>
                             </div>
-                            <div id="collapseThree" class="accordion-body collapse <?php if(Yii::app()->controller->id=='member' || Yii::app()->controller->id=='group'){echo 'in';} ?>">
+                            <div id="collapseThree" class="accordion-body collapse <?php if(Yii::app()->controller->id=='publisher'){echo 'in';} ?>">
                                 <div class="accordion-inner">
                                     <ul class="sub-menu">
-                                        <li class="<?php if(Yii::app()->controller->action->id=='admin'&&Yii::app()->controller->id=='member'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/member/admin'); ?>"><i class="icon icon-list"></i>D.Sách Thành viên</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='member'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/member/create'); ?>"><i class="icon icon-pencil"></i>Thêm Thành viên</a></li>
-                                        <li class="divider"></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='admin'&&Yii::app()->controller->id=='group'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/group/admin'); ?>"><i class="icon icon-list"></i>D.Sách mảng thành viên</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='group'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/group/create'); ?>"><i class="icon icon-pencil"></i>Thêm mảng thành viên</a></li>
-                                        <li class="divider"></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='employer'&&Yii::app()->controller->id=='member'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/member/employer'); ?>"><i class="icon icon-list"></i>D.Sách TV ban điều hành</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='createemployer'&&Yii::app()->controller->id=='member'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/member/createemployer'); ?>"><i class="icon icon-pencil"></i>Thêm TV ban điều hành</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='index'&&Yii::app()->controller->id=='publisher'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/publisher/'); ?>"><i class="icon icon-list"></i>Danh Sách Nhà Phát Hành</a></li>
+                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='publisher'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/publisher/create'); ?>"><i class="icon icon-pencil"></i>Thêm Nhà Phát Hành</a></li>
                                     </ul>
                                 </div>
                             </div>
