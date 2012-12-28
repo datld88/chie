@@ -147,4 +147,8 @@ class User extends CActiveRecord
         public function validatePassword($password){
             return ($this->password==md5($password.$this->salt));
         }
+        
+        public function hasProfile(){
+            return ($this->userProfile!==null);
+        }
 }
