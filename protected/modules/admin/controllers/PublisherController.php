@@ -3,7 +3,9 @@
 class PublisherController extends AdminController
 {
 	public function actionCreate(){
+            $model = new Publisher;
             
+            $this->render('create', array('model'=>$model));
         }
         
         public function actionIndex(){
