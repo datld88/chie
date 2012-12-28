@@ -59,7 +59,7 @@ class UserController extends AdminController
                     $this->redirect($url);
                 }
             }
-            $this->render('create', array('model'=>$model));
+            $this->render('update', array('model'=>$model));
         }
         
         public function loadModel($id){
