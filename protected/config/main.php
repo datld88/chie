@@ -19,7 +19,10 @@ return array(
                 'application.modules.rights.*',
                 'application.modules.rights.components.*', 
 	),
-
+        //declare xupload ext
+        'aliases'=>array(
+            'xupload'=>'ext.xupload',
+        ),
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		
