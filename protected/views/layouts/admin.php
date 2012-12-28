@@ -73,8 +73,11 @@
                                         <li class="divider"></li>                                        
                                         <li class="<?php if(Yii::app()->controller->action->id=='index' && Yii::app()->controller->id=='userprofile') echo 'active';?>">
                                             <a href="<?php echo Yii::app()->createUrl('/admin/userprofile/index');?>"><i class="icon icon-list"></i>Danh Sách User Profile</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='create' && Yii::app()->controller->id=='userprofile') echo 'active';?>">
-                                            <a href="<?php echo Yii::app()->createUrl('/admin/userprofile/create');?>"><i class="icon icon-pencil"></i>Thêm User Profile</i></a></li>
+                                        
+                                        <?php if(Yii::app()->controller->action->id=='create' && Yii::app()->controller->id=='userprofile')
+                                        echo '<li class="active">
+                                            <a href="', Yii::app()->createUrl('/admin/userprofile/create'), '<i class="icon icon-pencil"></i>Thêm User Profile</i></a></li>';
+                                        ?>    
                                     </ul>
                                 </div>
                             </div>
