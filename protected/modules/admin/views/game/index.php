@@ -26,7 +26,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'short_description',
         array(
             'name'=>'released_at',
-            'value'=>'date("F j, Y", $data->released_at)',
+            'value'=>'date_format(date_create_from_format("Y-m-d", $data->released_at), "M j, Y")',
         ),
         'rate_point',
         'is_hot',
