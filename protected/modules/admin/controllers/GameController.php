@@ -2,11 +2,7 @@
 
 class GameController extends AdminController
 {
-	public function action_form()
-	{
-		$this->render('_form');
-	}
-
+	
 	public function actionIndex(){
             $model=new Game('search');
             $model->unsetAttributes();
@@ -15,36 +11,40 @@ class GameController extends AdminController
                 $model->attributes=$_GET['Game'];
             $this->render('index', array('model'=>$model));
         }
-
 	public function actionCreate()
 	{
-		$this->render('create');
+            $model= new Game;
+            if(isset($_POST['Game'])){
+                $_POST['Game']=$this->cleanXss($_POST['Game']);
+                $model->attributes=$_POST['Game'];
+                if($model->save())
+                    $this->redirect(Yii::app()->createUrl('/admin/game/view/id/'.$model->id));
+                
+            }
+            $this->render('create', array('model'=>$model));
 	}
-
-	// Uncomment the following methods and override them if needed
-	/*
-	public function filters()
-	{
-		// return the filter configuration for this controller, e.g.:
-		return array(
-			'inlineFilterName',
-			array(
-				'class'=>'path.to.FilterClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-
-	public function actions()
-	{
-		// return external action classes, e.g.:
-		return array(
-			'action1'=>'path.to.ActionClass',
-			'action2'=>array(
-				'class'=>'path.to.AnotherActionClass',
-				'propertyName'=>'propertyValue',
-			),
-		);
-	}
-	*/
+        public function actionUpdate($id){
+            $model=$this->loadModel($id);
+            if(isset($_POST['Game'])){
+                $_POST['Game']=$this->cleanXSS($_POST['Game']);
+                $model->attributes=$_POST['Game'];
+                if($model->save())
+                    $this->redirect(Yii::app()->createUrl('/admin/game/view/id/'.$model->id));
+                }
+            $this->render('update', array('model'=>$model));
+        }
+        public function cleanXSS($data){
+            $keys=array_keys($data);
+            $p = new CHtmlPurifier();
+            foreach($keys as $key){
+                $data[$key]=$p->purify($data[$key]);
+            }
+            return $data;
+    }
+        public function loadModel($id){
+            $model=Game::model()->findByPk((int)$id);
+            if($model===null)
+                throw new CHttpException(404, 'Không tìm thấy Game này');
+            return $model;
+        }
 }
