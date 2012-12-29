@@ -8,7 +8,7 @@
  * @property string $name
  * @property integer $publisher_id
  * @property string $short_description
- * @property string $full_descripition
+ * @property string $full_description
  * @property integer $released_at
  * @property integer $count_game
  * @property integer $count_news
@@ -61,10 +61,10 @@ class Game extends CActiveRecord
 			array('rate_point', 'numerical'),
 			array('name, short_description', 'length', 'max'=>200),
 			array('playnow_title', 'length', 'max'=>255),
-			array('full_descripition', 'safe'),
+			array('full_description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, publisher_id, short_description, full_descripition, released_at, count_game, count_news, count_user_rated, is_hot, is_featured, rate_point, playnow_title', 'safe', 'on'=>'search'),
+			array('id, name, publisher_id, short_description, full_description, released_at, count_game, count_news, count_user_rated, is_hot, is_featured, rate_point, playnow_title', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,7 +97,7 @@ class Game extends CActiveRecord
 			'name' => 'Name',
 			'publisher_id' => 'Publisher',
 			'short_description' => 'Short Description',
-			'full_descripition' => 'Full Descripition',
+			'full_description' => 'Full Descripition',
 			'released_at' => 'Released At',
 			'count_game' => 'Count Game',
 			'count_news' => 'Count News',
@@ -124,7 +124,7 @@ class Game extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('publisher_id',$this->publisher_id);
 		$criteria->compare('short_description',$this->short_description,true);
-		$criteria->compare('full_descripition',$this->full_descripition,true);
+		$criteria->compare('full_description',$this->full_description,true);
 		$criteria->compare('released_at',$this->released_at);
 		$criteria->compare('count_game',$this->count_game);
 		$criteria->compare('count_news',$this->count_news);
