@@ -34,16 +34,17 @@ class PublisherController extends AdminController
         
         public function actionView($id){
             $id=(int)$id;
-            $user=Publisher::model()->with('games')->findByPk($id);
-            if($user===null)
+            $publisher=Publisher::model()->with('games')->findByPk($id);
+            if($publisher===null)
                 throw new CHttpException(404, 'Không tìm thấy nhà phát hành này');
-            $this->render('view', array('user'=>$user));
+            $this->render('view', array('publisher'=>$publisher));
         }
         public function actionDelete($id){
+            $this->loadModel((int)$id)->delete();
             
-        }
-        public function actonUpdate($id){
-            
+            //ifajax delete request then don't redirect anywhere
+            if(!isset($_GET['ajax']))
+                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('/admin/publisher'));
         }
         public function loadModel($id){
             $model=Publisher::model()->findByPk($id);
