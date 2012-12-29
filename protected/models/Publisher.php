@@ -149,7 +149,7 @@ class Publisher extends CActiveRecord
             return false;
         }
         //return all list of ACTIVE publisher on database
-        public function listPublishers(){
+        public static function listPublishers(){
             $publishers=self::model()->findAll(array(
                 'select'=>'id, name',
                 'condition'=>'status=:status',
