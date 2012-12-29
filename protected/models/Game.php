@@ -57,9 +57,12 @@ class Game extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name, publisher_id', 'required'),
-			array('publisher_id, released_at, count_game, count_news, count_user_rated, is_hot, is_featured', 'numerical', 'integerOnly'=>true),
+                        array('name', 'unique', 'className'=>'Game'),
+			array('publisher_id, count_game, count_news, count_user_rated' , 'numerical', 'integerOnly'=>true),
+                        array('is_hot, is_featured', 'boolean'),
 			array('rate_point', 'numerical'),
 			array('name, short_description', 'length', 'max'=>200),
+                        array('released_at', 'date', 'format'=>'yyyy-M-d'), //birthday format?
 			array('playnow_title', 'length', 'max'=>255),
 			array('full_description', 'safe'),
 			// The following rule is used by search().
@@ -141,5 +144,15 @@ class Game extends CActiveRecord
         
         public function getPublisherName(){
             return ($this->publisher->name);
+        }
+        
+        protected function beforeSave() {
+            if(parent::beforeSave()){
+                if($this->isNewRecord){
+                    $this->count_game=$this->count_news=$this->count_user_rated=0;
+                    return true;
+                }
+                return true;
+            }
         }
 }
