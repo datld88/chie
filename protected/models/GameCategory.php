@@ -52,6 +52,7 @@ class GameCategory extends CActiveRecord
 		return array(
 			array('name', 'required'),
 			array('parent_id, created_at, updated_at, position, level, count_children, sort_order, is_featured', 'numerical', 'integerOnly'=>true),
+                        array('parent_id', 'validateID'),
 			array('name, image, description', 'length', 'max'=>200),
 			array('path', 'length', 'max'=>100),
 			// The following rule is used by search().
@@ -124,4 +125,26 @@ class GameCategory extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+        public function getParentName(){
+            if($this->parent!==null)
+                return $this->parent->name;
+            return '';
+        }
+        public static function getCategoryList(){
+            $list=self::model()->findAll();
+            $result=array('0'=>'');
+            foreach($list as $cat){
+                $result[$cat['id']]=$cat['name'];
+            }
+            return $result;
+        }
+        //validate Parent ID is correct?
+        public function validateID($attribute, $params){
+            //ID exist on database?
+            if(!empty($this->parent_id)){
+            $parent=self::model()->findByPk($this->parent_id);
+            if($parent===null)
+                $this->addError($attribute, 'Có lỗi xảy ra. Category này không tồn tại trong hệ thống ');
+            }
+        }
 }
