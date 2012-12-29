@@ -60,9 +60,9 @@ class Publisher extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
+                        array('name', 'unique', 'className'=>'Publisher'),
 			array('phone, hotline, created_at, updated_at, level,, count_game', 'numerical', 'integerOnly'=>true),
 			array('name, logo_path, address', 'length', 'max'=>200),
-                         array('name', 'unique', 'className'=>'Publisher'),
 			array('logo, website', 'length', 'max'=>100),
 			array('phone, hotline', 'length', 'max'=>15),
                         array('status, is_vip', 'boolean'),
