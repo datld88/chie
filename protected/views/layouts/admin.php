@@ -118,18 +118,17 @@
                         <div class="accordion-group">
                             <div class="accordion-heading">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
-                                    Banner & Video
+                                    Quản Lý Tin Tức
                                 </a>
                             </div>
-                            <div id="collapseFour" class="accordion-body collapse <?php if(Yii::app()->controller->id=='banner'){echo 'in';} ?>">
+                            <div id="collapseFour" class="accordion-body collapse <?php if(Yii::app()->controller->id=='news'){echo 'in';} ?>">
                                 <div class="accordion-inner">
                                     <ul class="sub-menu">
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/admin/banner/admin'); ?>"><i class="icon icon-list"></i>D.Sách banner</a></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/admin/banner/create'); ?>"><i class="icon icon-plus"></i>Thêm Banner</a></li>
-                                        <li class="divider"></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/admin/video/admin'); ?>"><i class="icon icon-list"></i>D.Sách Video</a></li>
-                                        <li class=""><a href="<?php echo Yii::app()->createUrl('/admin/video/create'); ?>"><i class="icon icon-plus"></i>Thêm Video</a></li>
-                                        <li class="divider"></li>
+                                        <li class="<?php if(Yii::app()->controller->id=='news' && Yii::app()->controller->action->id=='index') echo 'active';?>">
+                                            <a href="<?php echo Yii::app()->createUrl('/admin/news/index'); ?>"><i class="icon icon-list"></i>Danh Sách Tin Tức</a></li>
+                                        <li class="<?php if(Yii::app()->controller->id=='news' && Yii::app()->controller->action->id=='create') echo 'active';?>">
+                                            <a href="<?php echo Yii::app()->createUrl('/admin/news/create'); ?>"><i class="icon icon-plus"></i>Thêm Tin Tức</a></li>
+                                        
                                     </ul>
                                 </div>
                             </div>
