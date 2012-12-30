@@ -29,18 +29,15 @@
                 if(empty($publisher->games))
                     echo '<h3>Publisher chưa có game nào trong hệ thống</h3>';
                 else{
-                    $this->widget('zii.widgets.grid.CGridView', array(
-                       'id'=>'game-grid',
-                        'dataProvider'=>$publisher->games,
-                        'htmlOptions'=>array('class'=>'table table-bordered table-hover'),
-                        'columns'=>array(
-                            'name',
-                            'short_description',
-                            
-                            array('class'=>'CButtonColumn'),
-                        ),
-                        'itemsCssClass'=>'table talbe-bordered talbe-hover',
+                    
+                    $gamesDataProvider=new CArrayDataProvider($publisher->games);
+                    echo '<h3>Publisher has ', $gamesDataProvider->itemCount, ' Games:</h3>';
+                    echo '<div class="row-fluid">';
+                    $this->widget('zii.widgets.CListView', array(
+                       'dataProvider'=>$gamesDataProvider,
+                        'itemView'=>'viewlist',
                     ));
+                    echo '</div>';
                 }
             ?>
         </div>
