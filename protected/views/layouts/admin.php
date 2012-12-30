@@ -133,23 +133,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
-                                    Menu & Footer
-                                </a>
-                            </div>
-                            <div id="collapseFive" class="accordion-body collapse <?php if(Yii::app()->controller->id=='menu'){echo 'in';} ?>">
-                                <div class="accordion-inner">
-                                    <ul class="sub-menu">
-                                        <li class="<?php if(Yii::app()->controller->action->id=='index'&&Yii::app()->controller->id=='menu'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/menu/index'); ?>"><i class="icon icon-list"></i>D.Sách Menu</a></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='create'&&Yii::app()->controller->id=='menu'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/menu/create'); ?>"><i class="icon icon-pencil"></i>Thêm menu</a></li>
-                                        <li class="divider"></li>
-                                        <li class="<?php if(Yii::app()->controller->action->id=='updatefooter'&&Yii::app()->controller->id=='menu'){echo 'active';} ?>"><a href="<?php echo Yii::app()->createUrl('/admin/menu/updatefooter'); ?>"><i class="icon icon-pencil"></i>Sửa footer</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                     
