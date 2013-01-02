@@ -2,7 +2,7 @@
 
 class CategoryController extends AdminController
 {
-	
+    
 	public function actionIndex()
 	{
 		$model=new GameCategory('search');
