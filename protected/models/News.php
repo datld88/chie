@@ -16,6 +16,7 @@
  *
  * The followings are the available model relations:
  * @property Game[] $chieGames
+ * @property integer $is_event
  */
 class News extends CActiveRecord
 {
@@ -53,8 +54,10 @@ class News extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, status', 'required'),
+			array('created_at, status, position, is_event', 'numerical', 'integerOnly'=>true),
 			array('created_at, updated_at, position', 'numerical', 'integerOnly'=>true),
                         array('status', 'in', 'range'=>array(self::STATUS_ARCHIEVED, self::STATUS_DRAFT, self::STATUS_PUBLISHED), 'allowEmpty'=>false),
+            
 			array('title', 'length', 'max'=>200),
 			array('summary', 'length', 'max'=>255),
 			array('content', 'safe'),
